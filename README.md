@@ -61,6 +61,14 @@ CELERY_BROKER_REDIS_URL="redis://localhost:6170"
 DEBUG=True
 ```
 
+Navigate into your Django root:
+
+```bash
+cd src/
+ls
+```
+You should see at least `cfehome/` and `manage.py`.
+
 Run your project in 2 terminals:
 - `python manage.py runserver`
 - `celery -A cfehome worker --beat`

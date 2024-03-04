@@ -50,7 +50,7 @@ python -m pip install -r requirements.txt
 
 Run a local redis instance via Docker Compose
 ```bash
-docker compose -f compose.yaml -d
+docker compose -f compose.yaml up -d
 ```
 This will give us `redis://localhost:6170`
 

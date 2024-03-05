@@ -1,5 +1,5 @@
+# https://www.codingforentrepreneurs.com/shorts/django-setup-for-use-in-jupyter-notebooks/
 import os, sys
-
 
 PWD = os.getenv("PWD")
 DJANGO_PROJECT = os.environ.get("DJANGO_PROJECT") or "cfehome"

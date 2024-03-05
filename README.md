@@ -12,6 +12,7 @@ Topics:
 References:
 - [Celery + Redis + Django configuration guide](https://www.codingforentrepreneurs.com/blog/celery-redis-django/)
 - Django + Celery Redis [blank project code](https://github.com/codingforentrepreneurs/Django-Celery-Redis)
+- Django + Jupyter Setup Module [short + code](https://www.codingforentrepreneurs.com/shorts/django-setup-for-use-in-jupyter-notebooks/)
 
 Requirements:
 - Django experience such as Try Django (on [YouTube](https://www.youtube.com/playlist?list=PLEsfXFp6DpzRMby_cSoWTFw8zaMdTEXgL) or on [CFE](https://www.codingforentrepreneurs.com/topics/try-django/)) or [Your First Django Project](https://www.codingforentrepreneurs.com/courses/your-first-django-project/).

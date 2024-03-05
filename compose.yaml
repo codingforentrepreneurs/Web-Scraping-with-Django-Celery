@@ -7,11 +7,11 @@ services:
         ports:
             - 6170:6379
         volumes:
-            - redis_data_a:/data
+            - data:/data
         entrypoint: redis-server --appendonly yes
 volumes:
-    redis_data_a:
+    data:
 
 networks:
   default:
-    name: redis_network
+    name: scrape_scheduler_network

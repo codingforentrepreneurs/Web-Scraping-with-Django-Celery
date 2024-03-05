@@ -6,3 +6,4 @@ python-decouple
 redis
 jupyter
 selenium
+beautifulsoup4

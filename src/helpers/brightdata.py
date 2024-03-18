@@ -1,4 +1,5 @@
 from selenium.webdriver import Remote, ChromeOptions
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
 from decouple import config
 from urllib.parse import urljoin, urlparse
@@ -7,7 +8,7 @@ from urllib.parse import urljoin, urlparse
 SBR_WEBDRIVER = config('SBR_WEBDRIVER', default=None)
 
 
-def scrape(url=None, solve_captcha=False, wait_seconds=0):
+def scrape(url=None, body_only=True, solve_captcha=False, wait_seconds=0):
     print('Connecting to Scraping Browser...')
     sbr_connection = ChromiumRemoteConnection(SBR_WEBDRIVER, 'goog', 'chrome')
     html = ""
@@ -17,8 +18,6 @@ def scrape(url=None, solve_captcha=False, wait_seconds=0):
         driver.get(url)
         if wait_seconds > 0:
             driver.implicitly_wait(wait_seconds)
-        # CAPTCHA handling: If you're expecting a CAPTCHA on the target page, use the following code snippet to check the status of Scraping Browser's automatic CAPTCHA solver
-        # print('Waiting captcha to solve...')
         if solve_captcha:
             solve_res = driver.execute('executeCdpCommand', {
                 'cmd': 'Captcha.waitForSolve',
@@ -27,4 +26,7 @@ def scrape(url=None, solve_captcha=False, wait_seconds=0):
             print('Captcha solve status:', solve_res['value']['status'])
         print('Navigated! Scraping page content...')
         html = driver.page_source
+        if body_only:
+            body = driver.find_element(By.TAG_NAME, "body")
+            html = body.get_attribute('innerHTML')
     return html

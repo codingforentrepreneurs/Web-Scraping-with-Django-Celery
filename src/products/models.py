@@ -2,13 +2,27 @@ from django.db import models
 
 # Create your models here.
 
+from .tasks import scrape_product_url_task
+
 class Product(models.Model):
     asin = models.CharField(max_length=120, unique=True, db_index=True)
+    url = models.URLField(blank=True, null=True)
     title = models.CharField(max_length=220, blank=True, null=True)
     current_price = models.FloatField(blank=True, null=True, default=0.00)
     timestamp =  models.DateTimeField(auto_now_add=True)
     updated =  models.DateTimeField(auto_now=True)
     metadata = models.JSONField(null=True, blank=True)
+    trigger_scrape = models.BooleanField(default=False)
+    _trigger_scrape = models.BooleanField(default=False)
+
+    # def save(self, *args, **kwargs):
+    #     if self.url and self.pk:
+    #         if self.trigger_scrape is not self._trigger_scrape:
+    #             self.trigger_scrape = False
+    #             self._trigger_scrape = False
+    #             scrape_product_url_task.delay(self.url)
+    #     super().save(*args, **kwargs)
+        
 
 
 class ProductScrapeEventManager(models.Manager):
@@ -19,6 +33,7 @@ class ProductScrapeEventManager(models.Manager):
         product, _ = Product.objects.update_or_create(
             asin=asin,
             defaults={
+                "url": url,
                 "title": data.get('title') or "",
                 "current_price": data.get('price') or 0.00,
                 "metadata": data,

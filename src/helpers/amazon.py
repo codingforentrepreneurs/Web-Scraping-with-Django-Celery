@@ -44,12 +44,21 @@ def extract_amazon_product_data(html):
     except:
         productDescription = ''
     featureBullets = soup.find('div', id='feature-bullets').text
+    asin = ''
+    metadata_items = find_product_table_data(html)
+    for data in metadata_items:
+        if data.get("ASIN") is None:
+            continue
+        else:
+            asin = data.get("ASIN")
+            break
     return {
+        'asin': asin,
         'title': productTitleText,
         'price_raw': productPrice,
         'price_text': productPriceText,
         'price': productPriceNum,
-        'metadata': find_product_table_data(html),
+        'metadata': metadata_items,
         'description': productDescription,
         'feature_bullets': featureBullets,
         'rating': find_product_rating(html)

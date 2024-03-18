@@ -12,16 +12,7 @@ class Product(models.Model):
     timestamp =  models.DateTimeField(auto_now_add=True)
     updated =  models.DateTimeField(auto_now=True)
     metadata = models.JSONField(null=True, blank=True)
-    trigger_scrape = models.BooleanField(default=False)
-    _trigger_scrape = models.BooleanField(default=False)
-
-    # def save(self, *args, **kwargs):
-    #     if self.url and self.pk:
-    #         if self.trigger_scrape is not self._trigger_scrape:
-    #             self.trigger_scrape = False
-    #             self._trigger_scrape = False
-    #             scrape_product_url_task.delay(self.url)
-    #     super().save(*args, **kwargs)
+    active = models.BooleanField(default=True, help_text="Scrape daily?")
         
 
 
